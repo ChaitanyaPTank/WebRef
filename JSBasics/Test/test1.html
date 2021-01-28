@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./test1.css">
+    <title>Test1</title>
+</head>
+<body>
+    
+    <form method="POST" id="userForm">
+        <label for="firstName">First Name:</label>
+        <input type="text" id="fName" name="fName" required><br><br>
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lName" name="lName" required><br><br>
+        <label for="age">Age:</label>
+        <input type="text" id="uage" name="age" required><br><br>
+        <label for="collage">Collage:</label>
+        <input type="text" id="ucollage" name="collage" required><br><br>
+        <label for="university">University:</label>
+        <input type="text" id="uuniversity" name="university" required><br><br>
+    </form><br>
+
+    <button type="submit" onclick="makeNewUser()">Add User</button><br><br>
+
+    <table style="width: 90%" id="table">
+        <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Age</th>
+            <th>Collage</th>
+            <th>University</th>
+            <th>Delete</th>
+        </tr>
+    </table>
+    
+    <script src="./test1.js"></script>
+</body>
+</html>
