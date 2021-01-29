@@ -51,24 +51,13 @@ function makeNewUser(){
 
 	formObj.reset();
 
-	const userTable = document.getElementById("table");
-	const newRow = userTable.insertRow(userTable.rows.length);
+	// for (let prop in newUser){
+	// 	const newCell = newRow.insertCell();
+	// 	newCell.innerHTML = newUser[prop];
+	// }
 
-	for (let prop in newUser){
-		const newCell = newRow.insertCell();
-		newCell.innerHTML = newUser[prop];
-	}
-
-	// This is adding delete cell in last
-
-	const lastCell = newRow.insertCell();
-	const deletionButton = document.createElement("button");
-	deletionButton.name = users.length;
-	deletionButton.innerHTML = "Delete";
-	deletionButton.setAttribute("onclick", `deleteUser(${users.length})`);
-	// deletionButton.setAttribute("onclick", id => users.splice(id-1, 1));
-	lastCell.appendChild(deletionButton);
-
+	renderTable();
+	
 }
 
 function deleteUser(id){
@@ -82,16 +71,33 @@ function deleteUser(id){
 function renderTable(){
 
 	const table = document.getElementById("table");
-	for(let i = table.row.length; i > 1; ++i){
-		table.deleteRow(i);
-	}
+	console.log(table.childNodes);
+
+	// get table head and table body
+	const oldBody = document.getElementById("tableBody");
+	const newTableBody = document.createElement("tbody");
+	newTableBody.setAttribute("id", "tableBody");
+
 	for (let i of users){
-		const newRow = table.insertRow(table.rows.length);
+
+		const newRow = newTableBody.insertRow();
 		for (let user in i){
 			const newCell = newRow.insertCell();
 			newCell.innerHTML = i[user];
 		}
+
+		// This is adding delete cell in last
+		const lastCell = newRow.insertCell();
+		const deletionButton = document.createElement("button");
+		deletionButton.name = users.length;
+		deletionButton.innerHTML = "Delete";
+		deletionButton.setAttribute("onclick", `deleteUser(${users.length})`);
+		lastCell.appendChild(deletionButton);
+
 	}
+
+	table.removeChild(oldBody);
+	table.appendChild(newTableBody);
 }
 
 console.log(users);
