@@ -61,38 +61,48 @@ function makeNewUser(){
 }
 
 function deleteUser(id){
-	users.splice(id-1, 1);
-	document.getElementById("table").deleteRow(id);
+	const index = users.findIndex(user=> user.id === id);
+	users.splice(index, 1);
 	renderTable();
-	console.log("Delete is called");
-	console.log(users);
+}
+
+function editUser(id) {
+	console.log("Edit is called");
 }
 
 function renderTable(){
 
 	const table = document.getElementById("table");
-	console.log(table.childNodes);
 
-	// get table head and table body
+	// get table head and table bod̥
 	const oldBody = document.getElementById("tableBody");
 	const newTableBody = document.createElement("tbody");
 	newTableBody.setAttribute("id", "tableBody");
 
-	for (let i of users){
+	for (let user of users){
 
 		const newRow = newTableBody.insertRow();
-		for (let user in i){
+
+		for (let prop in user){
 			const newCell = newRow.insertCell();
-			newCell.innerHTML = i[user];
+			newCell.innerHTML = user[prop];
 		}
 
-		// This is adding delete cell in last
-		const lastCell = newRow.insertCell();
+		// This is adding delete cell		
+		const delCell = newRow.insertCell();
 		const deletionButton = document.createElement("button");
-		deletionButton.name = users.length;
+		deletionButton.name = "del" + user.id;
 		deletionButton.innerHTML = "Delete";
-		deletionButton.setAttribute("onclick", `deleteUser(${users.length})`);
-		lastCell.appendChild(deletionButton);
+		deletionButton.setAttribute("onclick", `deleteUser(${user.id})`);
+		delCell.appendChild(deletionButton);
+
+		// This is adding edit cell
+		const editCell = newRow.insertCell();
+		const editButton = document.createElement("button");
+		editButton.name = "edit" + user.id;
+		editButton.innerHTML = "Edit";
+		editButton.setAttribute("onclick", `editUser(${user.id})`);
+		editCell.appendChild(editButton);
 
 	}
 
@@ -100,4 +110,3 @@ function renderTable(){
 	table.appendChild(newTableBody);
 }
 
-console.log(users);
