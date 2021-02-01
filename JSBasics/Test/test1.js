@@ -17,6 +17,7 @@
 //
 //All the user should be updated in table whenever users is created or updated it's detail
 
+// Users database
 const users = [
 	{
 		id: 1,
@@ -39,11 +40,12 @@ const users = [
 
 renderTable();
 
-// args = id=(users.length+1), firstName, lastName, age, collage, university
 function makeNewUser() {
 
 	const formObj = document.getElementById("userForm");
 
+	console.log(formObj);
+	// Validating user data
 	for (let val of formObj) {
 		if (val.value === '' || val.value === null || val.value === undefined) {
 			console.log("Can not be empty!");
@@ -90,15 +92,16 @@ function deleteUser(id) {
 	renderTable();
 }
 
+// Edits user info and called by edit button in HTML
 function editUser(id) {
 	console.log("Edit is called");
-	console.log("With ID as ", id);
+	console.log("For user :", id);
 
-	let firstName = document.getElementById("fName");
-	let lastName = document.getElementById("lName");
-	let age = document.getElementById("uage");
-	let collage = document.getElementById("ucollage");
-	let university = document.getElementById("uuniversity");
+	const firstName = document.getElementById("fName");
+	const lastName = document.getElementById("lName");
+	const age = document.getElementById("uage");
+	const collage = document.getElementById("ucollage");
+	const university = document.getElementById("uuniversity");
 
 	const uIndex = users.findIndex(user => user.id === id);
 	const user = users[uIndex];
@@ -116,7 +119,7 @@ function editUser(id) {
 
 function updateUser(index){
 
-	console.log("entered in updateUser with index", index);
+	console.log("Updating user:", index);
 	const tempUser = getUserInfo();
 	tempUser.id = users[index].id;
 	users[index] = tempUser;
@@ -131,11 +134,12 @@ function updateUser(index){
 	// form.reset();
 }
 
+// This function renders table based on users array
 function renderTable() {
 
 	const table = document.getElementById("table");
 
-	// get table head and table bod̥
+	// get table head and table body
 	const oldBody = document.getElementById("tableBody");
 	const newTableBody = document.createElement("tbody");
 	newTableBody.setAttribute("id", "tableBody");
@@ -144,38 +148,41 @@ function renderTable() {
 
 		const newRow = newTableBody.insertRow();
 
-		for (let prop in user) {
+		for (let property in user) {
 			const newCell = newRow.insertCell();
-			newCell.innerHTML = user[prop];
+			newCell.innerHTML = user[property];
 		}
 
-		delCell(user,newRow);
-
-		edCell(user,newRow)
+		delCell(user.id,newRow); // Sending userID while making delete cell to set the id as an argument.
+		edCell(user.id,newRow); // Same as above
 
 	}
 
 	table.removeChild(oldBody);
 	table.appendChild(newTableBody);
+	document.getElementById("userForm").reset();
+
 }
 
-
-function delCell(user, newRow) {
+// This function will add delete button to cell with userID as an argument
+function delCell(userID, newRow) {
 	// This is adding delete cell		
 	const delCell = newRow.insertCell();
 	const deletionButton = document.createElement("button");
-	deletionButton.name = "del" + user.id;
+	deletionButton.name = "del" + userID;
 	deletionButton.innerHTML = "Delete";
-	deletionButton.setAttribute("onclick", `deleteUser(${user.id})`);
+	deletionButton.setAttribute("onclick", `deleteUser(${userID})`);
 	delCell.appendChild(deletionButton);
 }
 
-function edCell(user, newRow) {
+// this function will add edit button to cell with argument as userID
+function edCell(userID, newRow) {
 	// This is adding edit cell
 	const editCell = newRow.insertCell();
 	const editButton = document.createElement("button");
-	editButton.name = "edit" + user.id;
+	editButton.name = "edit" + userID;
 	editButton.innerHTML = "Edit";
-	editButton.setAttribute("onclick", `editUser(${user.id})`);
+	editButton.setAttribute("onclick", `editUser(${userID})`);
 	editCell.appendChild(editButton);
+	// document.getElementById("userForm").reset();
 }
