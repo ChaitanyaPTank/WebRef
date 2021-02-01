@@ -38,13 +38,12 @@ const users = [
 	}
 ];
 
-renderTable();
-
-function makeNewUser() {
+const makeNewUser = () => {
 
 	const formObj = document.getElementById("userForm");
 
 	console.log(formObj);
+
 	// Validating user data
 	for (let val of formObj) {
 		if (val.value === '' || val.value === null || val.value === undefined) {
@@ -52,6 +51,9 @@ function makeNewUser() {
 			return;
 		}
 	}
+
+	console.log(formObj[0]);
+	console.log(formObj[1]);
 
 	newUser = getUserInfo();
 
@@ -64,7 +66,7 @@ function makeNewUser() {
 }
 
 // Takes info of new user
-function getUserInfo(){
+const getUserInfo = () => {
 
 	const id = users.length + 1;
 	const firstName = document.getElementById("fName").value;
@@ -86,16 +88,13 @@ function getUserInfo(){
 
 }
 
-function deleteUser(id) {
+const deleteUser = (id) => {
 	const index = users.findIndex(user => user.id === id);
 	users.splice(index, 1);
 	renderTable();
 }
 
-// Edits user info and called by edit button in HTML
-function editUser(id) {
-	console.log("Edit is called");
-	console.log("For user :", id);
+const getElements = () => {
 
 	const firstName = document.getElementById("fName");
 	const lastName = document.getElementById("lName");
@@ -103,21 +102,38 @@ function editUser(id) {
 	const collage = document.getElementById("ucollage");
 	const university = document.getElementById("uuniversity");
 
+	return {
+		firstName,
+		lastName,
+		age,
+		collage,
+		university
+	}
+}
+
+// Edits user info and called by edit button in HTML
+const editUser = (id) => {
+	console.log("Edit is called");
+	console.log("For user :", id);
+
+	const oldDetails = getElements();
+
 	const uIndex = users.findIndex(user => user.id === id);
 	const user = users[uIndex];
 	
-	const addUserButton = document.getElementById("addUser");
-	addUserButton.setAttribute("onclick", `updateUser(${uIndex})`);
-	addUserButton.innerHTML = "Update";
+	buttonToggle("Add", uIndex);
+	// const addUserButton = document.getElementById("addUser");
+	// addUserButton.setAttribute("onclick", `updateUser(${uIndex})`);
+	// addUserButton.innerHTML = "Update";
 
-	firstName.value = user.firstName;
-	lastName.value = user.lastName;
-	age.value = user.age;
-	collage.value = user.collage;
-	university.value = user.university;
+	oldDetails.firstName.value = user.firstName;
+	oldDetails.lastName.value = user.lastName;
+	oldDetails.age.value = user.age;
+	oldDetails.collage.value = user.collage;
+	oldDetails.university.value = user.university;
 }
 
-function updateUser(index){
+const updateUser = (index) => {
 
 	console.log("Updating user:", index);
 	const tempUser = getUserInfo();
@@ -126,16 +142,38 @@ function updateUser(index){
 
 	renderTable();
 
-	const updateButton = document.getElementById("addUser");
-	updateButton.innerHTML = "Add User";
-	updateButton.setAttribute("onclick", `makeNewUser()`);
+	console.log("Executing buttonToggle");
+	buttonToggle("edit");
+
+	// const updateButton = document.getElementById("addUser");
+	// updateButton.innerHTML = "Add User";
+	// updateButton.setAttribute("onclick", `makeNewUser()`);
 
 	// const form = document.getElementById("userForm()");
 	// form.reset();
 }
 
+// toggles between button update and addUser
+const buttonToggle = (button, userIndex) => {
+
+	console.log("In side button toggle");
+	console.log(button);
+	if (button === "edit") {
+		console.log("Inside if ");
+		const updateButton = document.getElementById("addUser");
+		updateButton.innerHTML = "Add User";
+		updateButton.setAttribute("onclick", `makeNewUser()`)
+		return;
+	}
+
+	const updateButton = document.getElementById("addUser");
+	updateButton.innerHTML = "Update";
+	updateButton.setAttribute("onclick", `updateUser(${userIndex})`);
+
+}
+
 // This function renders table based on users array
-function renderTable() {
+const renderTable = () => {
 
 	const table = document.getElementById("table");
 
@@ -165,7 +203,7 @@ function renderTable() {
 }
 
 // This function will add delete button to cell with userID as an argument
-function delCell(userID, newRow) {
+const delCell = (userID, newRow) => {
 	// This is adding delete cell		
 	const delCell = newRow.insertCell();
 	const deletionButton = document.createElement("button");
@@ -176,7 +214,7 @@ function delCell(userID, newRow) {
 }
 
 // this function will add edit button to cell with argument as userID
-function edCell(userID, newRow) {
+const edCell = (userID, newRow) => {
 	// This is adding edit cell
 	const editCell = newRow.insertCell();
 	const editButton = document.createElement("button");
@@ -186,3 +224,5 @@ function edCell(userID, newRow) {
 	editCell.appendChild(editButton);
 	// document.getElementById("userForm").reset();
 }
+
+renderTable();
