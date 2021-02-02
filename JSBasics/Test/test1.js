@@ -1,21 +1,21 @@
 // TODO
 // Create Array of object for users, each objects contain this things
-//{
-//id: 1,
-//firstName: 'Himanshu',
-//lastName: 'Patel',
-//age: 24,
-//collage: 'School of Engineering',
-//University: 'RK University',
-//}
+// {
+// id: 1,
+// firstName: 'Himanshu',
+// lastName: 'Patel',
+// age: 24,
+// collage: 'School of Engineering',
+// University: 'RK University',
+// }
 //
 //
-//Create html page for showing all the users in the table format,
-//Add button for updating user details,
-//Add button for Creating new user,
-//Add button for delete user,
+// Create html page for showing all the users in the table format,
+// Add button for updating user details,
+// Add button for Creating new user,
+// Add button for delete user,
 //
-//All the user should be updated in table whenever users is created or updated it's detail
+// All the user should be updated in table whenever users is created or updated it's detail
 
 // Users database
 const users = [
@@ -42,33 +42,30 @@ const makeNewUser = () => {
 
 	const formObj = document.getElementById("userForm");
 
-	console.log(formObj);
-
 	// Validating user data
 	for (let val of formObj) {
+		console.log(val);
 		if (val.value === '' || val.value === null || val.value === undefined) {
 			console.log("Can not be empty!");
 			return;
 		}
 	}
 
-	console.log(formObj[0]);
-	console.log(formObj[1]);
+	console.log(formObj["fname"]);
 
 	newUser = getUserInfo();
 
 	users.push(newUser);
-
 	formObj.reset();
 
 	renderTable();
 
 }
 
-// Takes info of new user
+// Takes info of new user from html form
 const getUserInfo = () => {
 
-	const id = users.length + 1;
+	const id = users[users.length - 1].id + 1 || 1;
 	const firstName = document.getElementById("fName").value;
 	const lastName = document.getElementById("lName").value;
 	const age = document.getElementById("uage").value;
@@ -88,12 +85,15 @@ const getUserInfo = () => {
 
 }
 
+// Deletes user based on ID
 const deleteUser = (id) => {
 	const index = users.findIndex(user => user.id === id);
 	users.splice(index, 1);
 	renderTable();
+	buttonToggle("edit");
 }
 
+// getting element from HTML form and wrapping them in object
 const getElements = () => {
 
 	const firstName = document.getElementById("fName");
@@ -120,7 +120,7 @@ const editUser = (id) => {
 
 	const uIndex = users.findIndex(user => user.id === id);
 	const user = users[uIndex];
-	
+
 	buttonToggle("Add", uIndex);
 	// const addUserButton = document.getElementById("addUser");
 	// addUserButton.setAttribute("onclick", `updateUser(${uIndex})`);
@@ -133,6 +133,7 @@ const editUser = (id) => {
 	oldDetails.university.value = user.university;
 }
 
+// gets called when update button is clicked which is inside editUser()
 const updateUser = (index) => {
 
 	console.log("Updating user:", index);
@@ -191,8 +192,8 @@ const renderTable = () => {
 			newCell.innerHTML = user[property];
 		}
 
-		delCell(user.id,newRow); // Sending userID while making delete cell to set the id as an argument.
-		edCell(user.id,newRow); // Same as above
+		delCell(user.id, newRow); // Sending userID while making delete cell to set the id as an argument.
+		edCell(user.id, newRow); // Same as above
 
 	}
 
@@ -204,6 +205,7 @@ const renderTable = () => {
 
 // This function will add delete button to cell with userID as an argument
 const delCell = (userID, newRow) => {
+
 	// This is adding delete cell		
 	const delCell = newRow.insertCell();
 	const deletionButton = document.createElement("button");
