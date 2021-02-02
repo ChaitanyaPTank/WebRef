@@ -40,26 +40,34 @@ const users = [
 
 const makeNewUser = () => {
 
-	const formObj = document.getElementById("userForm");
-
 	// Validating user data
-	for (let val of formObj) {
-		console.log(val);
-		if (val.value === '' || val.value === null || val.value === undefined) {
-			console.log("Can not be empty!");
-			return;
-		}
-	}
+	if (!validateUser()){ return; }
 
-	console.log(formObj["fname"]);
+	console.log("After Validating user");
 
 	newUser = getUserInfo();
 
 	users.push(newUser);
-	formObj.reset();
+	document.getElementById("userForm").reset();
 
 	renderTable();
 
+}
+
+validateUser = () => {
+
+	const formObject = document.getElementById("userForm");
+	const regName = /^[a-zA-Z]+ [a-zA-Z]+$/;
+
+	for (let val of formObject) {
+		console.log(val);
+		if (val.value === '' || val.value === null || val.value === undefined) {
+			alert("Fields can not be empty");
+			return false;
+		}
+	}
+
+	return true;
 }
 
 // Takes info of new user from html form
