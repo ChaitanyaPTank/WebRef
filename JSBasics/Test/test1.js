@@ -41,9 +41,7 @@ const users = [
 const makeNewUser = () => {
 
 	// Validating user data
-	if (!validateUser()) {
-		return;
-	}
+	if (!validateUser()) { return; }
 
 	newUser = getUserInfo();
 
@@ -58,7 +56,7 @@ validateUser = () => {
 
 	const formObject = document.getElementById("userForm");
 	const regName = /^[A-Za-z]+$/; // this is failing somewhere to validate the string
-	const regNums = /^[0-9]+$/; // Checks age
+	const regAge = /^[1-9]?[0-9]{1}$|^100$/;
 
 	for (let val of formObject) {
 		if (val.value === '' || val.value === null || val.value === undefined) {
@@ -69,7 +67,7 @@ validateUser = () => {
 
 	if (!regName.test(formObject[0].value)) { alert(`${formObject[0].value} is not valid first name`); return false; }
 	if (!regName.test(formObject[1].value)) { alert(`${formObject[1].value} is not valid last name`); return false; }
-	if (!regNums.test(formObject[2].value)) { alert(`${formObject[2].value} is not valid age`); return false; }
+	if (!regAge.test(formObject[2].value)){ alert(`${formObject[2].value} is not valid age`); return false; }
 	if (!regName.test(formObject[3].value)) { alert(`${formObject[3].value} is not valid college`); return false; }
 	if (!regName.test(formObject[4].value)) { alert(`${formObject[4].value} is not valid university`); return false; }
  
@@ -108,7 +106,7 @@ const deleteUser = (id) => {
 }
 
 // getting element from HTML form and wrapping them in object
-const getElements = () => {
+const getValues = () => {
 
 	const firstName = document.getElementById("fName");
 	const lastName = document.getElementById("lName");
@@ -130,15 +128,12 @@ const editUser = (id) => {
 	console.log("Edit is called");
 	console.log("For user :", id);
 
-	const oldDetails = getElements();
+	const oldDetails = getValues();
 
 	const uIndex = users.findIndex(user => user.id === id);
 	const user = users[uIndex];
 
 	buttonToggle("Add", uIndex);
-	// const addUserButton = document.getElementById("addUser");
-	// addUserButton.setAttribute("onclick", `updateUser(${uIndex})`);
-	// addUserButton.innerHTML = "Update";
 
 	oldDetails.firstName.value = user.firstName;
 	oldDetails.lastName.value = user.lastName;
@@ -151,6 +146,7 @@ const editUser = (id) => {
 const updateUser = (index) => {
 
 	console.log("Updating user:", index);
+	if (!validateUser()) { return; }
 	const tempUser = getUserInfo();
 	tempUser.id = users[index].id;
 	users[index] = tempUser;
@@ -160,12 +156,6 @@ const updateUser = (index) => {
 	console.log("Executing buttonToggle");
 	buttonToggle("edit");
 
-	// const updateButton = document.getElementById("addUser");
-	// updateButton.innerHTML = "Add User";
-	// updateButton.setAttribute("onclick", `makeNewUser()`);
-
-	// const form = document.getElementById("userForm()");
-	// form.reset();
 }
 
 // toggles between button update and addUser
