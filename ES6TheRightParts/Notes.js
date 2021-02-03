@@ -77,11 +77,11 @@ var obj = {
 ***/
 
 /***
-		// let vs var
+	// let vs var
 
-		// Closures and explicit blocks
+	// Closures and explicit blocks
 
-		// block scopping in for loops
+	// block scopping in for loops
 function foo( x,y ) {
 		for (var i = 0; i < 10; ++i){ // should use let i = 0 here
 				$("#btn")+i.click(function(){
@@ -98,8 +98,8 @@ const is not about constant value but it is about making immutable reference
 
 function foo (x){
 		x = x || 42; // we are trying to provide default value of x if it is not passed
-		// If we do pass "0" as an argument then it will not take x as 0 as it is falsy value.
-		// better solution is
+	// If we do pass "0" as an argument then it will not take x as 0 as it is falsy value.
+	// better solution is
 
 		x = x !== undefined ? x : 42; // This is the better solution
 }
@@ -111,7 +111,7 @@ function uniqueID() {
 }
 
 function foo (id = uniqueID()) {
-		// code goes here
+	// code goes here
 }
 
 foo(5); // uniqueID is not called if you are passing any value, untill it does not needs to be evaluated
@@ -131,7 +131,7 @@ foo();
 
 
 /***
-		// Gather and spread operator
+	// Gather and spread operator
 
 function foo() {
 		var args = [].slice.call( arguments ); // storing args in array
@@ -152,7 +152,7 @@ function foo( ...args ){ // gather operator
 
 
 /***
-		// Array destructuring
+	// Array destructuring
 
 function foo () {
 		return [1, 2, 3];
@@ -202,36 +202,92 @@ var x = [a, b] = foo(); // x here will not be [1, 2] but it will be [1, 2, 3, [4
 [ ,,, [c, d]] = [a, b, ...args] = foo();
  ***/
 
-
+/***
 // Object destructuring
-
 function foo () {
-		return {a:1, b:2, c:3};
+	return {a:1, b:2, c:3};
 }
 
 var {
-		val1,
-		val2,
-		val3
+	val1,
+	val2,
+	val3
 } = foo() || {}; // assigns 1 to val1, 2 to val2, 3 to val3
 
 var {
-		val1,
-		val2: valueX,
-		val3
+	val1,
+	val2: valueX,
+	val3
 } = foo(); // value 2 will be assigned to valueX not to the val2
 
 // Nested object destructuring
 
 function foo() {
-		return {a:1, b:2, c:3, d: { e:4 }};
+	return {a:1, b:2, c:3, d: { e:4 }};
 }
 
 var {
-		a = 10,
-		b: X = 42,
-		c,
-		d: {
-				e
-		}
+	a = 10,
+	b: X = 42,
+	c,
+	d: {
+		e
+	}
 }
+
+var a,b,c;
+
+{
+	a,
+	b,
+	c,
+} = foo() || {}; // if you are not using declarator before object then you should wrap parenthesis to the whole destructuring other wise it will take as block scope
+
+// solution
+({
+	a,
+	b,
+	c
+} = foo() || {});
+
+// or
+
+var {
+	a,
+	b,
+	c
+} = foo() || {};
+***/
+
+
+// Function parameters destructuring
+
+function foo([a, b, c] = []){
+	console.log(a, b, c);
+}
+
+foo(1,2,3); // invalid you must pass array as a parameter like
+foo([1, 2, 3]);
+
+// for object destructuring
+
+function foo ( {a, b=42, c} = {} ) { // if b is not pased then "b" will be 42 = foo({a:1,c:2})
+	console.log(a, b, c);
+}
+
+foo ({ a:1, b:2, c:3 }); // This works like named params in JS which is as same as kwargs in Python
+
+// Advanced destructuring
+// Object mixing example
+
+// concise properties and methods
+// Template strings
+// Tag function
+// Symbols
+// Standard / Well-known symbols
+// Iterators
+// Creating custom iterator
+// Generators
+// Computed generator methods
+// Ranges
+// Code optimization for readers
