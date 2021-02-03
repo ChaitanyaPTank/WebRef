@@ -41,9 +41,9 @@ const users = [
 const makeNewUser = () => {
 
 	// Validating user data
-	if (!validateUser()){ return; }
-
-	console.log("After Validating user");
+	if (!validateUser()) {
+		return;
+	}
 
 	newUser = getUserInfo();
 
@@ -57,16 +57,22 @@ const makeNewUser = () => {
 validateUser = () => {
 
 	const formObject = document.getElementById("userForm");
-	const regName = /^[a-zA-Z]+ [a-zA-Z]+$/;
+	const regName = /^[A-Za-z]+$/; // this is failing somewhere to validate the string
+	const regNums = /^[0-9]+$/; // Checks age
 
 	for (let val of formObject) {
-		console.log(val);
 		if (val.value === '' || val.value === null || val.value === undefined) {
 			alert("Fields can not be empty");
 			return false;
 		}
 	}
 
+	if (!regName.test(formObject[0].value)) { alert(`${formObject[0].value} is not valid first name`); return false; }
+	if (!regName.test(formObject[1].value)) { alert(`${formObject[1].value} is not valid last name`); return false; }
+	if (!regNums.test(formObject[2].value)) { alert(`${formObject[2].value} is not valid age`); return false; }
+	if (!regName.test(formObject[3].value)) { alert(`${formObject[3].value} is not valid college`); return false; }
+	if (!regName.test(formObject[4].value)) { alert(`${formObject[4].value} is not valid university`); return false; }
+ 
 	return true;
 }
 
