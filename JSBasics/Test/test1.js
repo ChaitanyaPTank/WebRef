@@ -77,7 +77,7 @@ validateUser = () => {
 // Takes info of new user from html form
 const getUserInfo = () => {
 
-	const id = users[users.length - 1].id + 1 || 1;
+	const id = (users[users.length - 1].id + 1) || 1;
 	const firstName = document.getElementById("fName").value;
 	const lastName = document.getElementById("lName").value;
 	const age = document.getElementById("uage").value;
