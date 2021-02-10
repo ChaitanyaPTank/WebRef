@@ -1,0 +1,56 @@
+* { /* "*" This is universal selector */
+    margin: 0;                  /* These lines will override */
+    padding: 0;                 /* default behaviour */
+    box-sizing: border-box;     /* of the browser */
+}
+
+h1, p {
+    background-color: #dde0e3;
+}
+
+em, strong {
+    background-color: #B2D6FF;
+    display: inline;
+}
+
+strong {
+    margin: 50px;
+}
+h1 {
+    padding: 50px;
+    border-bottom: 1px solid #5D6063;
+}
+
+p {
+    /*
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    */
+
+    /* 
+    or we can write
+    padding: vertical horizontal
+    padding: 20px 10px;
+    padding: top right bottom left;
+    */
+
+    padding: 20px 0 20px 10px;
+    margin-top: 25px;
+    margin-bottom: 50px;
+}
+
+div {
+    color: #FFF;
+    background-color: #5995DA;
+    font-weight: bold;
+    padding: 20px;
+    text-align: center;
+    border: 2px solid #5d6063;
+    border-radius: 5px;
+
+    width: 200px;
+    box-sizing: border-box;
+    margin: 20px auto; /* margin: vertical horizontal */
+}
