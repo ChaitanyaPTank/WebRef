@@ -46,3 +46,9 @@ Handling get requests
 
 Handling Post requests
 
+Handling Put requests
+
+Handling deleting requests
+
+Using middleware
+
