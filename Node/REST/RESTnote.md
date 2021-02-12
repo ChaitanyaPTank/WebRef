@@ -52,3 +52,25 @@ Handling deleting requests
 
 Using middleware
 
+Create custom middleware
+
+Built in middleware
+    - json
+    - urlencoded
+    - static
+
+Third party middleware
+    - helment
+    - morgan
+
+Environments
+    - Development
+    - Production
+    - Testing
+
+process.env.NODE_ENV => returns the type of current env wiz => testing / dev / prod.
+app.get(`env`)
+
+configuration settings for different environment
+
+do not store passwords in this config files

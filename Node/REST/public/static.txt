@@ -1,0 +1,1 @@
+This is for demo of static middleware in express js
