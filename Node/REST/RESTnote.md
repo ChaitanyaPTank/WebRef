@@ -69,8 +69,43 @@ Environments
     - Testing
 
 process.env.NODE_ENV => returns the type of current env wiz => testing / dev / prod.
+to set NODE_ENV variable in current process you may need to use
+    : $env:variable_name="variable_value" in powershell.
+    : set variable_name=variable_value in command prompt.
 app.get(`env`)
 
 configuration settings for different environment
 
 do not store passwords in this config files
+
+debugging
+    - install debug module from npm
+    - const startupDebugger = require('debug')('app:startup'); will call function and store debug info in startup namespace.
+        - startupDebugger('debug messages') to log the info in the console.
+        - while starting node app set variable named DEBUG=app:startup to start the debugger in startup namespace
+
+templating engine
+    - Examples of template engines
+        - pug // we are using this in the course
+        - mustache
+        - EJS
+    - set view engine
+    - use res.render() not res.send()
+
+Database integration
+    - working with different db options in Express as like SQLite, MongoDB etc...
+
+Authentication
+    - Express does not have any opinion on authentication so you need to use another framework or library may be
+
+Structure course
+    - make separate file in .\routes\courses.js to move all api/s related api/courses in courses.js
+    - import express in courses.js and use
+        - const router = express.Router();
+        - replace app.get with route.get
+        - export route : module.exports = route;
+    - in index.js : const courses = require("./routes/courses");
+    - add app.use("/api/courses", courses) // courses is Route function
+    - remove /api/courses from courses.js and replace that with a "/"
+        as we have told to use courses route when /api/courses is called
+    - put all middle ware in a separate middleware folder
