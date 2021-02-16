@@ -1,3 +1,5 @@
 JSBasics/Test/.log.txt.swp
-Node/REST/node_modules
-Vidly/node_modules
+Node/REST/node_modules/
+Vidly/node_modules/
+ecom-ex/.env
+ecom-ex/node_modules/
