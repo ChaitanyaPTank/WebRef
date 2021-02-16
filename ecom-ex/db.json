@@ -1,0 +1,13 @@
+{
+    "users":[
+        {"id":1, "user":"Chaitanya"},
+        {"id":2, "user":"Himanshu"},
+        {"id":3, "user":"Nirali"}
+    ],
+
+    "products":[
+        {"id":1, "product": "apple"},
+        {"id":2, "product": "big_apple"},
+        {"id":3, "product": "small_apple"}
+    ]
+}
