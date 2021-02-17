@@ -1,8 +1,8 @@
 const express = require("express");
-const userValidator = require("../validators/user.validator");
+const { userValidator, validateUserName } = require("../validators/user.validator");
 const router = express.Router();
 
 // login
-router.post("/", userValidator);
+router.post("/", validateUserName, userValidator);
 
 module.exports = router;
