@@ -1,0 +1,12 @@
+GET - sending data , does not have body, params, query
+POST - To insert data in server, has body
+PUT - Edit data in server, has body
+PATCH - similer to put, but see the diff
+DELETE - Delete record
+
+
+Async awaits
+Mongoose ODM - Object data model / provides interface
+
+Think about API for e commerece, has login and signup : make API
+request.user 
