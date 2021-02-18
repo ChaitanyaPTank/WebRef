@@ -5,7 +5,7 @@ PATCH - similer to put, but see the diff
 DELETE - Delete record
 
 
-Async awaits
+search about : Async await
 Mongoose ODM - Object data model / provides interface
 
 Think about API for e commerece, has login and signup : make API
