@@ -10,3 +10,4 @@ Mongoose ODM - Object data model / provides interface
 
 Think about API for e commerece, has login and signup : make API
 request.user 
+Add validators
