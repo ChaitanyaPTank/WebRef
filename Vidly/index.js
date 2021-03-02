@@ -1,15 +1,30 @@
 const express = require("express");
 const morgan = require("morgan");
-const startupDebugger = require("debug")("app:startup");
-const logger = require("./middleware/logger");
+const debug = require("debug");
+const startupDebugger = debug("app:startup");
+const databaseDebugger = debug("app:database");
 const genre = require("./routes/genre");
+const mongoose = require("mongoose");
 const home = require("./routes/home");
 
 const app = express();
 
+async function connectDB() {
+    try{
+        await mongoose.connect("mongodb://localhost/Vidly", {
+            useUnifiedTopology: true,
+            useNewUrlParser: true
+        })
+    }
+    catch(err){
+        databaseDebugger("Failed to connect to Database : ", err.message);
+    }
+}
+
+connectDB();
+
 app.use(express.json());
 // app.use(express.static("public")) // we do not have static file yet
-app.use(logger);
 
 if (app.get("env") === "development"){
     app.use(morgan("tiny"));
